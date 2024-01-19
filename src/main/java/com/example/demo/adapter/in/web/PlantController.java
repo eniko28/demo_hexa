@@ -32,4 +32,10 @@ public class PlantController {
     public void deletePlant(@PathVariable Long id) {
         plantService.deletePlant(id);
     }
+    @GetMapping("/szia")
+    public String hello() {
+        return "szia";
+    }
 }
+
+
