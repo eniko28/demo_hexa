@@ -11,33 +11,37 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public abstract class PlantService implements PlantOutputPort, PlantInputPort {
+public class PlantService implements PlantInputPort {
+
+    private final PlantOutputPort plantOutputPort;
 
     @Autowired
-    private PlantRepository plantRepository;
+    protected PlantService(PlantOutputPort plantOutputPort) {
+        this.plantOutputPort = plantOutputPort;
+    }
 
     public List<Plant> getAllPlants() {
-        return plantRepository.findAll();
+        return plantOutputPort.findAll();
     }
 
     public Plant getPlantById(Long id) {
-        return plantRepository.findById(id).orElse(null);
+        return plantOutputPort.findById(id).orElse(null);
     }
 
     public Plant savePlant(Plant plant) {
 
-        Optional<Plant> existingPlant = plantRepository.findByNameAndType(plant.getName(), plant.getType());
+        Optional<Plant> existingPlant = plantOutputPort.findByNameAndType(plant.getName(), plant.getType());
         if (existingPlant.isPresent()) {
             Plant existing = existingPlant.get();
             existing.setQuantity(existing.getQuantity() + plant.getQuantity());
-            return plantRepository.save(existing);
+            return plantOutputPort.save(existing);
         } else {
-            return plantRepository.save(plant);
+            return plantOutputPort.save(plant);
         }
     }
 
     public void deletePlant(Long id) {
-        Optional<Plant> existingPlant = plantRepository.findById(id);
+        Optional<Plant> existingPlant = plantOutputPort.findById(id);
         if (existingPlant.isPresent()) {
 
             Plant plant = existingPlant.get();
@@ -45,9 +49,9 @@ public abstract class PlantService implements PlantOutputPort, PlantInputPort {
             int currentQuantity = plant.getQuantity();
             if (currentQuantity > 0) {
                 plant.setQuantity(currentQuantity - 1);
-                plantRepository.save(plant);
+                plantOutputPort.save(plant);
                 if (currentQuantity == 1) {
-                    plantRepository.deleteById(id);
+                    plantOutputPort.deleteById(id);
                 }
             }
         } else {

@@ -6,9 +6,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PlantOutputPort {
-    List<Plant> getAllPlants();
+
+    List<Plant> findAll();
+
+    Optional<Plant> findById(Long id);
+
+    Plant save(Plant honey);
+    void deleteById(Long id);
+
     Optional<Plant> findByNameAndType(String name, String type);
-    Plant savePlant(Plant plant);
-    void deletePlant(Long id);
+
 }
 
