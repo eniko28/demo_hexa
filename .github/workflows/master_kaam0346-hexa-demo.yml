@@ -60,5 +60,6 @@ jobs:
         with:
           app-name: 'kaam0346-hexa-demo'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'demo-0.0.1-SNAPSHOT.jar'
+          publish-profile: '*'
 
