@@ -28,7 +28,7 @@ public class PlantController {
         return plantService.savePlant(plant);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public void deletePlant(@PathVariable Long id) {
         plantService.deletePlant(id);
     }
