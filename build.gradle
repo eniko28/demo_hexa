@@ -16,10 +16,13 @@ repositories {
 }
 
 dependencies {
-
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly group: 'com.mysql', name: 'mysql-connector-j', version: '8.2.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+
+	implementation group: 'com.azure.spring', name: 'spring-cloud-azure-starter', version: '5.8.0'
+	implementation 'com.azure.spring:spring-cloud-azure-starter-jdbc-mysql:5.0.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
